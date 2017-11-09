@@ -1,6 +1,5 @@
 package test;
 
-import lsg.armor.ArmorItem;
 import lsg.consumables.Consumable;
 import org.junit.After;
 import org.junit.Assert;
@@ -210,7 +209,7 @@ public class ConsumableTest {
     @Test
     public void existFoodSubClasses() {
         try {
-            Class<?> c1 = Class.forName("lsg.consumables.food.Americain");
+            Class<?> c1 = Class.forName("lsg.consumables.food.American");
             Class<?> c2 = Class.forName("lsg.consumables.food.Food");
             Class<?> c3 = Class.forName("lsg.consumables.food.Hamburger");
             Class<?> c4 = Class.forName("lsg.consumables.Consumable");
@@ -227,7 +226,7 @@ public class ConsumableTest {
     public void testFoodToString() {
         try {
             Class<?> c0 = Class.forName("lsg.consumables.Consumable");
-            Class<?> c1 = Class.forName("lsg.consumables.food.Americain");
+            Class<?> c1 = Class.forName("lsg.consumables.food.American");
             Class<?> c2 = Class.forName("lsg.consumables.food.Hamburger");
 
             Constructor<?> constructor1 = c1.getDeclaredConstructor();

@@ -1,0 +1,43 @@
+package lsg.consumables;
+
+import lsg.consumables.drinks.Coffee;
+import lsg.consumables.drinks.Whisky;
+import lsg.consumables.drinks.Wine;
+import lsg.consumables.food.American;
+import lsg.consumables.food.Hamburger;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class MenuBestOfV3 extends HashSet<Consumable> {
+
+    public MenuBestOfV3(){
+        this.add(new Hamburger());
+        this.add(new Wine());
+        this.add(new American());
+        this.add(new Coffee());
+        this.add(new Whisky());
+    }
+
+
+    @Override
+    public String toString() {
+        String chaine = getClass().getSimpleName() + " :\n";
+        int compteur = 1;
+
+        Iterator<Consumable> iterator = this.iterator();
+        while(iterator.hasNext()){
+            chaine += (compteur) + " : " + iterator.next().toString() + "\n";
+            compteur++;
+        }
+
+        return chaine;
+    }
+
+    public static void main(String[] args) {
+
+        MenuBestOfV3 menu3 = new MenuBestOfV3();
+        System.out.println(menu3.toString());
+    }
+}
