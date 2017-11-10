@@ -31,10 +31,11 @@ public class LearningSoulsGame {
     private void refresh(){
 
         hero1.printStats();
-        System.out.println(hero1.getWeapon().toString());
-        System.out.println(hero1.getConsumable().toString());
+        System.out.println(BULLET_POINT + hero1.getWeapon().toString());
+        System.out.println(BULLET_POINT + hero1.getConsumable().toString());
         System.out.println();
         monster1.printStats();
+        System.out.println();
     }
 
     //Méthode qui permet d'attribuer les armes aux deux combattants
@@ -61,22 +62,51 @@ public class LearningSoulsGame {
 
         int att;
         int dmg;
+        int val;
 
         lsg.characters.Character tmp;
         refresh();
         while(hero1.isAlive() && monster1.isAlive()) {
-            
-            System.out.print("\nHit enter key for next move > ");
-            scanner.nextLine();
 
-            att = p1.attack();
-            dmg = p2.getHitWith(att);
-            System.out.println("\n" + p1.getName() + " attacks " + p2.getName() + " with " + p1.getWeapon().getName() + " (ATTACK:" + att + " | DMG : " + dmg + ")");
-            refresh();
-            tmp = p2;
-            p2 = p1;
-            p1 = tmp;
+            if(p1 instanceof Hero) {
+                System.out.print("Hero's action for next move : (1) attack | (2) consume > ");
+                val = scanner.nextInt();
+                //while (val != 1 || val != 2) {
+                  //  System.out.print("Hero's action for next move : (1) attack | (2) consume > ");
+                  //  val = scanner.nextInt();
+                //}
+                if (val == 1) {
 
+                    //System.out.print("\nHit enter key for next move > ");
+                    //scanner.nextLine();
+
+                    att = p1.attack();
+                    dmg = p2.getHitWith(att);
+                    System.out.println("\n" + p1.getName() + " attacks " + p2.getName() + " with " + p1.getWeapon().getName() + " (ATTACK:" + att + " | DMG : " + dmg + ")");
+                    refresh();
+                    tmp = p2;
+                    p2 = p1;
+                    p1 = tmp;
+                } else if (val == 2) {
+                    p1.consume();
+                    tmp = p2;
+                    p2 = p1;
+                    p1 = tmp;
+                }else{
+                    System.out.print("Hero's action for next move : (1) attack | (2) consume > ");
+                    val = scanner.nextInt();
+                }
+
+            }else
+            {
+                att = p1.attack();
+                dmg = p2.getHitWith(att);
+                System.out.println("\n" + p1.getName() + " attacks " + p2.getName() + " with " + p1.getWeapon().getName() + " (ATTACK:" + att + " | DMG : " + dmg + ")");
+                refresh();
+                tmp = p2;
+                p2 = p1;
+                p1 = tmp;
+            }
         }
         System.out.println("\n--- " + p2.getName() + " WINS !!! ---");
     }
