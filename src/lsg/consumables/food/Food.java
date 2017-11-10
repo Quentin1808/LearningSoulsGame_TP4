@@ -1,6 +1,7 @@
 package lsg.consumables.food;
 
 import lsg.consumables.Consumable;
+import lsg.characters.Character;
 
 public class Food extends Consumable {
 

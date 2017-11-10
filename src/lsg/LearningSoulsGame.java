@@ -8,6 +8,7 @@ import java.lang.Character;
 
 import lsg.consumables.Consumable;
 import lsg.consumables.MenuBestOfV4;
+import lsg.consumables.food.Hamburger;
 import lsg.weapons.Weapon;
 import lsg.weapons.Claw;
 import lsg.weapons.ShotGun;
@@ -23,12 +24,16 @@ public class LearningSoulsGame {
     private lsg.characters.Character hero1 = new Hero();
     private lsg.characters.Character monster1 = new Monster();
     private Scanner scanner = new Scanner(System.in);
+    public static final String BULLET_POINT = "\u2219";
 
 
     //Méthode refresh qui permet d'afficher les valeurs de chaque combattant
     private void refresh(){
 
         hero1.printStats();
+        System.out.println(hero1.getWeapon().toString());
+        System.out.println(hero1.getConsumable().toString());
+        System.out.println();
         monster1.printStats();
     }
 
@@ -39,6 +44,7 @@ public class LearningSoulsGame {
 //        monster1.setWeapon(new Claw());
 
         hero1.setWeapon(new Sword());
+        hero1.setConsumable(new Hamburger());
         ((Hero)hero1).setArmorItem(new DragonSlayerLeggings(), 2);
         RingOfDeath ringOfDeath = new RingOfDeath();
         DragonSlayerRing dragonSlayerRing = new DragonSlayerRing();
@@ -59,8 +65,7 @@ public class LearningSoulsGame {
         lsg.characters.Character tmp;
         refresh();
         while(hero1.isAlive() && monster1.isAlive()) {
-
-
+            
             System.out.print("\nHit enter key for next move > ");
             scanner.nextLine();
 
@@ -121,12 +126,21 @@ public class LearningSoulsGame {
         System.out.println(hero1.getWeapon().toString());
     }
 
+    private void title(){
+        System.out.println("###############################");
+        System.out.println("#   THE LEARNING SOULS GAME   #");
+        System.out.println("###############################");
+        System.out.println();
+    }
+
     public static void main(String[] args) {
 
         LearningSoulsGame lsg = new LearningSoulsGame();
-        lsg.createExhaustedHero();
-        lsg.aTable();
-
+        //lsg.createExhaustedHero();
+        //lsg.aTable();
+        lsg.title();
+        lsg.init();
+        lsg.fight1v1();
        /*Monster M1 = new Monster("STUDENTATORT");
        Monster M2 = new Monster();
        Monster M3 = new Monster();

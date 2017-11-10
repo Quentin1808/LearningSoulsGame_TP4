@@ -1,5 +1,7 @@
 package lsg.weapons;
 
+import lsg.consumables.repair.RepairKit;
+
 public class Weapon {
 
     private String name;
@@ -70,4 +72,7 @@ public class Weapon {
         return (this.getName() + " (min:" + this.getMinDamage() + " max:" + this.getMaxDamage() + " stam:" + this.getStamCost() + " dur:" + this.getDurability() + ")");
     }
 
+    public void repairWith(RepairKit kit){
+        this.durability += kit.use();
+    }
 }

@@ -9,4 +9,15 @@ public class RepairKit extends Consumable {
         super("Repair Kit", 10, Weapon.DURABILITY_STAT_STRING);
     }
 
+    @Override
+    public int use(){
+        int tmp = getCapacity();
+        if(tmp == 0){
+            return tmp;
+        }
+        else{
+            setCapacity(getCapacity() - 1);
+            return 1;
+        }
+    }
 }

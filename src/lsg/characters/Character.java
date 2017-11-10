@@ -2,6 +2,7 @@ package lsg.characters;
 import lsg.consumables.Consumable;
 import lsg.consumables.drinks.Drink;
 import lsg.consumables.food.Food;
+import lsg.consumables.repair.RepairKit;
 import lsg.helpers.*;
 import lsg.weapons.Weapon;
 
@@ -20,6 +21,10 @@ public abstract class Character {
     private Weapon weapon;
     public static final String LIFE_STAT_STRING = "life";
     public static final String STAM_STAT_STRING = "stamina";
+    public static final String PROTECTION_STAT_STRING = "protection";
+    public static final String BUFF_STAT_STRING = "buff";
+
+    private Consumable consumable;
 
     protected Character() {
         dice = new Dice(101);
@@ -76,6 +81,14 @@ public abstract class Character {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    public Consumable getConsumable() {
+        return consumable;
+    }
+
+    public void setConsumable(Consumable consumable){
+        this.consumable = consumable;
     }
 
     public boolean isAlive() {
@@ -157,12 +170,28 @@ public abstract class Character {
 
     private void drink(Drink boisson){
         System.out.println(this.name + " drinks " + boisson.toString());
-        this.setStamina(getStamina() + boisson.use());
+        //this.setStamina(getStamina() + boisson.use());
+        if(this.getStamina() + boisson.use() <= this.getMaxStamina()){
+            this.setStamina(getStamina() + boisson.use());
+        }else{
+            this.setStamina(this.getMaxStamina());
+        }
     }
 
     private void eat(Food nourriture){
         System.out.println(this.name + " eats " + nourriture.toString());
-        this.setLife(getLife() + nourriture.use());
+        //this.setLife(getLife() + nourriture.use());
+        //(this.getLife() + nourriture.use() <= this.getMaxLife()) ? this.setLife(getLife() + nourriture.use()) : this.setLife(this.getMaxLife());
+        if(this.getLife() + nourriture.use() <= this.getMaxLife()){
+            this.setLife(getLife() + nourriture.use());
+        }else{
+            this.setLife(this.getMaxLife());
+        }
+    }
+
+    private void repairWeaponWith(RepairKit kit){
+        System.out.println(this.name + " repairs " + weapon.toString() + " with " + kit.toString());
+        this.weapon.repairWith(kit);
     }
 
     public void use(Consumable consumable){
@@ -173,7 +202,14 @@ public abstract class Character {
             if (consumable instanceof Food){
                 eat((Food) consumable);
             }
+            else if(consumable instanceof RepairKit){
+                repairWeaponWith((RepairKit) consumable);
+            }
 
+    }
+
+    public void consume(){
+        use(consumable);
     }
 
 }
